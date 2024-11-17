@@ -3,6 +3,8 @@ import dotenv from 'dotenv';
 import connectdb from './config/db.js';
 import adminRoutes from './routes/adminRoutes.js';
 import driverRoutes from './routes/driverRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 connectdb();
@@ -10,7 +12,9 @@ connectdb();
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
+app.use('/api/auth',authRoutes);
 app.use('/api/admin',adminRoutes);
 app.use('/api/driver',driverRoutes);
 const PORT  = process.env.PORT||5000;
